@@ -1,11 +1,11 @@
 const usersRouter = require("./users");
-const postsRouter = require("./posts");
-const pagesRouter = require("./pages");
-const settingsRouter = require("./settings");
+const diariesRouter = require("./diaries");
+const productsRouter = require("./products");
+const exercisesRouter = require("./exercises");
 
 module.exports = {
   usersRouter,
-  postsRouter,
-  pagesRouter,
-  settingsRouter,
+  diariesRouter,
+  productsRouter,
+  exercisesRouter,
 };
