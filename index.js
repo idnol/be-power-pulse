@@ -14,11 +14,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/api/users", usersRouter);
-app.use("/api/diaries", diariesRouter);
-app.use("/api/exercises", productsRouter);
-app.use("/api/products", exercisesRouter);
-
+// app.use("/api/users", usersRouter);
+// app.use("/api/diaries", diariesRouter);
+app.use("/api/exercises", exercisesRouter);
+// app.use("/api/products", productsRouter);
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
 });
@@ -34,7 +33,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       console.log("DB connection success");
-      console.log("Server is running. Use our API on port: 5556");
+      console.log("Server is running. Use our API on port: 3333");
     });
   })
   .catch((e) => {
