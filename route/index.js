@@ -1,11 +1,11 @@
-const usersRouter = require("./users");
-const diariesRouter = require("./diaries");
+// const usersRouter = require("./users");
+// const diariesRouter = require("./diaries");
 const productsRouter = require("./products");
-const exercisesRouter = require("./exercises");
+// const exercisesRouter = require("./exercises");
 
 module.exports = {
-  usersRouter,
-  diariesRouter,
+  // usersRouter,
+  // diariesRouter,
   productsRouter,
-  exercisesRouter,
+  // exercisesRouter,
 };
