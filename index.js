@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { usersRouter, diariesRouter, productsRouter, exercisesRouter } = require("./route");
+const productsRouter = require("./route/products");
 const mongoose = require("mongoose");
 
 dotenv.config();
@@ -18,6 +18,7 @@ app.use(express.static("public"));
 // app.use("/api/diaries", diariesRouter);
 app.use("/api/exercises", exercisesRouter);
 // app.use("/api/products", productsRouter);
+
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
 });
