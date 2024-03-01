@@ -1,8 +1,8 @@
 const getAll = require("./getAll");
 const {wrapper} = require("../../middlewar");
-const getRecommended = require("./getRecommended");
+const getCategories = require("./getCategories");
 
 module.exports = {
     getAll: wrapper(getAll),
-    getRecommended: wrapper(getRecommended)
+    getCategories: wrapper(getCategories)
 }
