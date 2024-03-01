@@ -10,7 +10,8 @@ const schema = new Schema(
                     type: Schema.Types.ObjectId,
                     ref: 'products',
                 },
-                weight: Number
+                weight: Number,
+                calories: Number
             }
         ],
         exercises: [
@@ -19,9 +20,10 @@ const schema = new Schema(
                     type: Schema.Types.ObjectId,
                     ref: 'exercises',
                 },
-                time: Number
+                time: Number,
+                calories: Number
             }
-        ]
+        ],
     },
     { versionKey: false, timestamps: false }
 );

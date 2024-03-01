@@ -1,6 +1,7 @@
 const Diary = require("../../../model/diaries");
 const getDate = require("./getDate");
-const addNewDiary = async ({user, product, exercise, weight, time}) => {
+const addNewDiary = async (obj) => {
+    const {user, product, exercise, weight, time = 0, calories = 0, amount = 0} = obj;
     const diary = {
         owner: user,
         date: getDate(),
@@ -9,14 +10,16 @@ const addNewDiary = async ({user, product, exercise, weight, time}) => {
     if (product) {
         diary.products = [{
             product,
-            weight
+            weight,
+            calories
         }];
     }
 
     if (exercise) {
         diary.exercises = [{
             exercise,
-            time
+            time,
+            calories
         }];
     }
 
