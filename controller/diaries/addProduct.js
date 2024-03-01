@@ -7,7 +7,7 @@ const Products = require("../../model/products");
 const addProduct = async (req, res) => {
     const {product, user, weight} = req.body;
     const myProduct = await Products.findById(product, 'calories');
-   // console.log(myProduct._doc.calories)
+
     const defaultCalories = myProduct._doc.calories;
     const calories = Math.floor((defaultCalories * weight) / 100)
 
@@ -16,16 +16,42 @@ const addProduct = async (req, res) => {
     let result;
 
     if (!allDiaries.length) {
-        result = await addNewDiary({user, product, weight, calories});
+        result = await addNewDiary({
+            user,
+            product,
+            weight,
+            calories,
+            statistic: {calories}
+        });
     } else {
-        const diary = await Diary.findOne({owner: user, date: getDate()});
-        if (!diary) {
-            result = await addNewDiary({user, product, weight, calories});
-        } else {
-            const {_id, products} = diary;
-            products.push({ product, weight, calories })
+        const diary = await Diary.findOne({
+            owner: user,
+            date: getDate()
+        });
 
-            result = await Diary.findByIdAndUpdate(_id, {products},)
+        if (!diary) {
+            result = await addNewDiary({
+                user,
+                product,
+                weight,
+                calories, statistic: {calories}
+            });
+        } else {
+            const {_id, products, statistic} = diary;
+            products.push({ product, weight, calories })
+            diary.statistic.calories += calories
+
+            result = await Diary.findByIdAndUpdate(
+                _id,
+                {
+                    products,
+                    statistic:
+                        {
+                            ...diary.statistic,
+                            calories: diary.statistic.calories
+                        }
+                }
+            )
         }
     }
 

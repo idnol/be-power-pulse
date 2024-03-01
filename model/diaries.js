@@ -24,6 +24,11 @@ const schema = new Schema(
                 calories: Number
             }
         ],
+        statistic: {
+            calories: Number,
+            burnedCalories: Number,
+            sportTime: Number
+        }
     },
     { versionKey: false, timestamps: false }
 );
