@@ -13,10 +13,15 @@ const schema = new Schema(
                 weight: Number
             }
         ],
-        exercises: {
-            type: [Schema.Types.ObjectId],
-            ref: 'exercises',
-        },
+        exercises: [
+            {
+                exercise: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'exercises',
+                },
+                time: Number
+            }
+        ]
     },
     { versionKey: false, timestamps: false }
 );
