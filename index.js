@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const {exercisesRouter, productsRouter} = require("./route");
+const {exercisesRouter, productsRouter, diariesRouter} = require("./route");
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // app.use("/api/users", usersRouter);
-// app.use("/api/diaries", diariesRouter);
+app.use("/api/diaries", diariesRouter);
 app.use("/api/exercises", exercisesRouter);
 app.use("/api/products", productsRouter);
 
