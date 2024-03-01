@@ -2,8 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const productsRouter = require("./route/products");
 const mongoose = require("mongoose");
+const {exercisesRouter, productsRouter} = require("./route");
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ app.use(express.static("public"));
 // app.use("/api/users", usersRouter);
 // app.use("/api/diaries", diariesRouter);
 app.use("/api/exercises", exercisesRouter);
-// app.use("/api/products", productsRouter);
+app.use("/api/products", productsRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
