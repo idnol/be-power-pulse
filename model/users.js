@@ -148,7 +148,6 @@ const userSchema = new Schema({
                 required: true,
                 enum: [1, 2, 3, 4, 5]
             }
-
     }
 }, { versionKey: false, timestamps: true });
 
