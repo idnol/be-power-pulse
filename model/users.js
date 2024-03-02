@@ -102,9 +102,11 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    bodyDate:{
-        _id: false,
-        type: {
+    dailyCalorie: {
+        type: String,
+        default: null
+    },
+    bodyData:{
             height: {
                 type: Number,
                 required: true,
@@ -146,7 +148,7 @@ const userSchema = new Schema({
                 required: true,
                 enum: [1, 2, 3, 4, 5]
             }
-        }
+
     }
 }, { versionKey: false, timestamps: true });
 
