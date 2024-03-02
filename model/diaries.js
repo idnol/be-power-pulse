@@ -6,7 +6,8 @@ const schema = new Schema(
         date: {type: String},
         products: [
             {
-                product: {
+                product:
+                    {
                     type: Schema.Types.ObjectId,
                     ref: 'products',
                 },
@@ -24,6 +25,11 @@ const schema = new Schema(
                 calories: Number
             }
         ],
+        statistic: {
+            calories: Number,
+            burnedCalories: Number,
+            sportTime: Number
+        }
     },
     { versionKey: false, timestamps: false }
 );

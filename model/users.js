@@ -65,6 +65,22 @@ const updateSchema = Joi.object({
     }),
 });
 
+const userJoiSchema = Joi.object({
+    height: Joi.number().min(150).required(),
+    currentWeight: Joi.number().min(35).required(),
+    desiredWeight: Joi.number().min(35).required(),
+    birthday: Joi.date().iso().max('now').required().raw().custom((value, helpers) => {
+        const age = new Date().getFullYear() - new Date(value).getFullYear();
+        if (age < 18) {
+            return helpers.message('Age must be at least 18 years old');
+        }
+        return value;
+    }),
+    blood: Joi.number().valid(1, 2, 3, 4).required(),
+    sex: Joi.string().valid('male', 'female'),
+    levelActivity: Joi.number().valid(1, 2, 3, 4, 5).required()
+});
+
 const userSchema = new Schema({
     name: {
         type: String,
@@ -131,6 +147,8 @@ const userSchema = new Schema({
     }
 }, { versionKey: false, timestamps: true });
 
+
+
 userSchema.post('save', handleMongooseError);
 
 const User = model("user", userSchema);
@@ -140,4 +158,5 @@ module.exports = {
     registerSchema,
     loginSchema,
     updateSchema,
+    userJoiSchema,
 };
