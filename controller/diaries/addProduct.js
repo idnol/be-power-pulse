@@ -34,11 +34,16 @@ const addProduct = async (req, res) => {
                 user,
                 product,
                 weight,
-                calories, statistic: {calories}
+                calories,
+                statistic: {calories}
             });
         } else {
             const {_id, products, statistic} = diary;
-            products.push({ product, weight, calories })
+            products.push({
+                product,
+                weight,
+                calories
+            })
             diary.statistic.calories += calories
 
             result = await Diary.findByIdAndUpdate(

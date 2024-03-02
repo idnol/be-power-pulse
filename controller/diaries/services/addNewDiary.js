@@ -7,13 +7,16 @@ const addNewDiary = async (obj) => {
         owner: user,
         date: getDate(),
     }
-
+    product.weight = weight;
+    product.calories = calories;
     if (product) {
-        diary.products = [{
-            product,
-            weight,
-            calories
-        }];
+        diary.products = [
+            {
+                product,
+                weight,
+                calories
+            }
+        ];
     }
 
     if (exercise) {
