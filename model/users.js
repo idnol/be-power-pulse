@@ -102,50 +102,47 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    bodyDate:{
-        _id: false,
-        type: {
-            height: {
-                type: Number,
-                required: true,
-                min: 150
-            },
-            currentWeight: {
-                type: Number,
-                required: true,
-                min: 35
-            },
-            desiredWeight: {
-                type: Number,
-                required: true,
-                min: 35
-            },
-            birthday: {
-                type: Date,
-                required: true,
-                validate: {
-                    validator: function(value) {
-                        const age = new Date().getFullYear() - value.getFullYear();
-                        return age >= 18;
-                    },
-                    message: 'User must be older than 18 years'
-                }
-            },
-            blood: {
-                type: Number,
-                required: true,
-                enum: [1, 2, 3, 4]
-            },
-            sex: {
-                type: String,
-                required: true,
-                enum: ['male', 'female']
-            },
-            levelActivity: {
-                type: Number,
-                required: true,
-                enum: [1, 2, 3, 4, 5]
+    bodyData: {
+        height: {
+            type: Number,
+            required: true,
+            min: 150
+        },
+        currentWeight: {
+            type: Number,
+            required: true,
+            min: 35
+        },
+        desiredWeight: {
+            type: Number,
+            required: true,
+            min: 35
+        },
+        birthday: {
+            type: Date,
+            required: true,
+            validate: {
+                validator: function (value) {
+                    const age = new Date().getFullYear() - value.getFullYear();
+                    return age >= 18;
+                },
+                message: 'User must be older than 18 years'
             }
+        },
+        blood: {
+            type: Number,
+            required: true,
+            enum: [1, 2, 3, 4]
+        },
+        sex: {
+            type: String,
+            required: true,
+            enum: ['male', 'female']
+        },
+        levelActivity: {
+            type: Number,
+            required: true,
+            enum: [1, 2, 3, 4, 5]
         }
     }
 }, { versionKey: false, timestamps: true });
