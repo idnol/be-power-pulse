@@ -11,12 +11,11 @@ const removeProduct = async (req, res) => {
     const {_id, statistic} = diary;
     statistic.calories -= calories;
 
-    console.log(statistic.calories)
-
     const data = await Diary.findByIdAndUpdate(
         _id,
         {
             statistic: {
+                ...statistic,
                 calories: statistic.calories
             },
             $pull: { products: { _id: id } }
