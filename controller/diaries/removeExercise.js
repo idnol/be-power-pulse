@@ -1,5 +1,6 @@
 const Diary = require("../../model/diaries");
 const getDate = require("./services/getDate");
+const {HttpError} = require("../../helper");
 const removeExercise = async (req, res) => {
     const {_id: user} = req.user;
     const {id, calories, time} = req.body;
@@ -9,7 +10,9 @@ const removeExercise = async (req, res) => {
         date: getDate()
     });
 
-    console.log(diary)
+    if (!diary) {
+        throw HttpError(404);
+    }
 
     const {_id, statistic} = diary;
     statistic.burnedCalories -= calories;
@@ -27,6 +30,10 @@ const removeExercise = async (req, res) => {
         },
         { new: true }
     )
+
+    if (!data) {
+        throw HttpError(404);
+    }
 
     res.json(data);
 }
