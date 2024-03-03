@@ -4,7 +4,7 @@ const ageFromDate = require("./services/ageFromDate");
 
 const updateProfile = async (req, res) => {
     const bodyData = req.body;
-    const { name, email } = bodyData
+    const { name } = bodyData
     const { _id } = req.user;
     const dailyExerciseTime = 110;
 
@@ -12,7 +12,7 @@ const updateProfile = async (req, res) => {
 
     const dailyCalorie = bmr(bodyData, age)
 
-    await User.findByIdAndUpdate(_id, {name, email, bodyData, dailyCalorie,});
+    await User.findByIdAndUpdate(_id, {name, bodyData, dailyCalorie,});
 
     res.json({ dailyCalorie, dailyExerciseTime, bodyData });
 

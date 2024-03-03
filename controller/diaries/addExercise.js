@@ -5,7 +5,8 @@ const getDate = require("./services/getDate");
 const {Exercise} = require("../../model/exercises");
 
 const addExercise = async (req, res) => {
-    const {exercise, user, time} = req.body;
+    const {_id: user} = req.user;
+    const {exercise, time} = req.body;
     const myExercise = await Exercise.findById(exercise, 'burnedCalories');
 
     const defaultCalories = myExercise._doc.burnedCalories;

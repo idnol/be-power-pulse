@@ -5,7 +5,8 @@ const getDate = require("./services/getDate");
 const Products = require("../../model/products");
 
 const addProduct = async (req, res) => {
-    const {product, user, weight} = req.body;
+    const {_id: user} = req.user;
+    const {product, weight} = req.body;
     const myProduct = await Products.findById(product, 'calories');
 
     const defaultCalories = myProduct._doc.calories;

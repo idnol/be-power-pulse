@@ -1,7 +1,8 @@
 const Diary = require("../../model/diaries");
 const getDate = require("./services/getDate");
 const removeExercise = async (req, res) => {
-    const {id, user, calories, time} = req.body;
+    const {_id: user} = req.user;
+    const {id, calories, time} = req.body;
 
     const diary = await Diary.findOne({
         owner: user,
