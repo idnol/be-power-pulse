@@ -5,13 +5,22 @@ const getDate = require("./services/getDate");
 const {Exercise} = require("../../model/exercises");
 
 const addExercise = async (req, res) => {
-    const {exercise, user, time} = req.body;
+    const {_id: user} = req.user;
+    const {exercise, time} = req.body;
     const myExercise = await Exercise.findById(exercise, 'burnedCalories');
+
+    if (!myExercise) {
+        throw HttpError(404);
+    }
 
     const defaultCalories = myExercise._doc.burnedCalories;
     const calories = Math.floor((defaultCalories * time) / 180)
 
     const allDiaries = await Diary.find();
+
+    if (!allDiaries) {
+        throw HttpError(404);
+    }
 
     let result;
 

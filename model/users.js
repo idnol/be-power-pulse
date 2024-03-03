@@ -66,8 +66,7 @@ const updateSchema = Joi.object({
 });
 
 const userJoiSchema = Joi.object({
-    name: Joi.string(),
-    email: Joi.string().pattern(emailRegex),
+    name: Joi.string().min(3).required(),
     height: Joi.number().min(150).required(),
     currentWeight: Joi.number().min(35).required(),
     desiredWeight: Joi.number().min(35).required(),
@@ -100,49 +99,52 @@ const userSchema = new Schema({
         minlength: 6,
     },
     token: String,
-    avatarURL: {
-        type: String,
-        required: true,
-    },
     dailyCalorie: {
-        type: String,
+        type: Number,
+        default: null
+    },
+    dailyExerciseTime: {
+        type: Number,
         default: null
     },
     bodyData:{
-            height: {
-                type: Number,
-                min: 150
-            },
-            currentWeight: {
-                type: Number,
-                min: 35
-            },
-            desiredWeight: {
-                type: Number,
-                min: 35
-            },
-            birthday: {
-                type: Date,
-                validate: {
-                    validator: function(value) {
-                        const age = new Date().getFullYear() - value.getFullYear();
-                        return age >= 18;
-                    },
-                    message: 'User must be older than 18 years'
-                }
-            },
-            blood: {
-                type: Number,
-                enum: [1, 2, 3, 4]
-            },
-            sex: {
-                type: String,
-                enum: ['male', 'female']
-            },
-            levelActivity: {
-                type: Number,
-                enum: [1, 2, 3, 4, 5]
+        height: {
+            type: Number,
+            min: 150
+        },
+        currentWeight: {
+            type: Number,
+            min: 35
+        },
+        desiredWeight: {
+            type: Number,
+            min: 35
+        },
+        birthday: {
+            type: Date,
+            validate: {
+                validator: function(value) {
+                    const age = new Date().getFullYear() - value.getFullYear();
+                    return age >= 18;
+                },
+                message: 'User must be older than 18 years'
             }
+        },
+        blood: {
+            type: Number,
+            enum: [1, 2, 3, 4]
+        },
+        sex: {
+            type: String,
+            enum: ['male', 'female']
+        },
+        levelActivity: {
+            type: Number,
+            enum: [1, 2, 3, 4, 5]
+        },
+        avatar: {
+            type: String
+        }
 
     }
 }, { versionKey: false, timestamps: true });

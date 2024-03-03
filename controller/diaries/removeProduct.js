@@ -1,12 +1,18 @@
 const Diary = require("../../model/diaries");
 const getDate = require("./services/getDate");
+const {HttpError} = require("../../helper");
 const removeProduct = async (req, res) => {
-    const {id, user, calories} = req.body;
+    const {_id: user} = req.user;
+    const {id, calories} = req.body;
 
     const diary = await Diary.findOne({
         owner: user,
         date: getDate()
     });
+
+    if (!diary) {
+        throw HttpError(404);
+    }
 
     const {_id, statistic} = diary;
     statistic.calories -= calories;
@@ -22,6 +28,10 @@ const removeProduct = async (req, res) => {
         },
         { new: true }
     )
+
+    if (!data) {
+        throw HttpError(404);
+    }
 
     res.json(data);
 }

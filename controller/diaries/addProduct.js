@@ -5,13 +5,22 @@ const getDate = require("./services/getDate");
 const Products = require("../../model/products");
 
 const addProduct = async (req, res) => {
-    const {product, user, weight} = req.body;
+    const {_id: user} = req.user;
+    const {product, weight} = req.body;
     const myProduct = await Products.findById(product, 'calories');
+
+    if (!myProduct) {
+        throw HttpError(404);
+    }
 
     const defaultCalories = myProduct._doc.calories;
     const calories = Math.floor((defaultCalories * weight) / 100)
 
     const allDiaries = await Diary.find();
+
+    if (!allDiaries) {
+        throw HttpError(404);
+    }
 
     let result;
 
@@ -59,6 +68,8 @@ const addProduct = async (req, res) => {
             )
         }
     }
+
+    if (!result) HttpError(404, 'not found');
 
     res.json(result);
 }
