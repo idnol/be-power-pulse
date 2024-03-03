@@ -1,38 +1,21 @@
 const { User } = require("../../model/users");
-
-const bmrFoo = require("./services/bmr")
-const ageFromDate = require("./services/ageFromDate")
-// const {HttpError} = require("../../helper");
+const bmr = require("./services/bmr");
+const ageFromDate = require("./services/ageFromDate");
 
 const updateProfile = async (req, res) => {
-    const { sex, desiredWeight, currentWeight, height, birthday, blood, levelActivity } = req.body;
+    const bodyData = req.body;
+    const { name, email } = bodyData
     const { _id } = req.user;
-
-    const bodyDate = {
-        height,
-        currentWeight,
-        desiredWeight,
-        birthday,
-        blood,
-        sex,
-        levelActivity
-    };
-    console.log(birthday)
-
-    const age = ageFromDate(birthday)
-
-
-    await User.findByIdAndUpdate(_id, { bodyDate });
-
     const dailyExerciseTime = 110;
-    const bmr = bmrFoo(sex, currentWeight, height, age, levelActivity)
 
-    res.json({ bmr, dailyExerciseTime });
+    const age = ageFromDate(bodyData.birthday)
+
+    const dailyCalorie = bmr(bodyData, age)
+
+    await User.findByIdAndUpdate(_id, {name, email, bodyData, dailyCalorie,});
+
+    res.json({ dailyCalorie, dailyExerciseTime, bodyData });
+
 }
-
-
-
-
-
 
 module.exports = updateProfile;

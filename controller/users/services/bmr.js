@@ -1,4 +1,4 @@
-const bmr = (sex, currentWeight, height, age, levelActivity) => {
+const bmr =  ({sex, currentWeight, height, levelActivity}, age) => {
     let bmr;
     if (sex === 'male') {
         bmr = (10 * currentWeight + 6.25 * height - 5 * age + 5) * levelActivity;

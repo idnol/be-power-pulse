@@ -66,6 +66,8 @@ const updateSchema = Joi.object({
 });
 
 const userJoiSchema = Joi.object({
+    name: Joi.string(),
+    email: Joi.string().pattern(emailRegex),
     height: Joi.number().min(150).required(),
     currentWeight: Joi.number().min(35).required(),
     desiredWeight: Joi.number().min(35).required(),
@@ -102,6 +104,10 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    dailyCalorie: {
+        type: String,
+        default: null
+    },
     bodyData: {
         height: {
             type: Number,
@@ -136,8 +142,9 @@ const userSchema = new Schema({
         levelActivity: {
             type: Number,
             enum: [1, 2, 3, 4, 5]
-        },
-    },
+        }
+
+    }
 }, { versionKey: false, timestamps: true });
 
 
