@@ -8,7 +8,7 @@ const register = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
-        throw HttpError(409, "Email in use")
+        throw HttpError(409, "Email already in use")
     }
 
     const salt = await bcrypt.genSalt();
@@ -18,10 +18,8 @@ const register = async (req, res, next) => {
     const userNew = await User.create({ name, email, password: hashedPassword, avatarURL })
 
     res.status(201).json({
-        user: {
-            name: userNew.name,
-            email: userNew.email,
-        }
+        name: userNew.name,
+        email: userNew.email,
     })
 }
 
