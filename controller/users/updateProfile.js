@@ -2,7 +2,6 @@ const { User } = require("../../model/users");
 const bmr = require("./services/bmr");
 const ageFromDate = require("./services/ageFromDate");
 
-
 const updateProfile = async (req, res) => {
     const bodyData = req.body;
     const { name, email } = bodyData
