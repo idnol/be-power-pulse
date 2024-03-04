@@ -18,8 +18,10 @@ const register = async (req, res, next) => {
     const userNew = await User.create({ name, email, password: hashedPassword, avatarURL })
 
     res.status(201).json({
-        name: userNew.name,
-        email: userNew.email,
+        user: {
+            name: userNew.name,
+            email: userNew.email,
+        }
     })
 }
 
