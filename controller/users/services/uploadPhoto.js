@@ -1,4 +1,4 @@
-const {v2: cloudinary} = require("cloudinary");
+const { v2: cloudinary } = require("cloudinary");
 
 cloudinary.config({
     cloud_name: process.env.CLOUDYNARY_CLOUD_NAME,
@@ -10,7 +10,7 @@ const uploadPhoto = async (photoPath) => {
         const result = await cloudinary.uploader.upload(photoPath);
         return result.url;
     } catch (error) {
-        console.error('Помилка під час завантаження фотографії:', error);
+        console.error('Error uploading a photo:', error);
         throw error;
     }
 };

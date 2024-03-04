@@ -173,6 +173,40 @@
                     }
                 }
             }
+        },
+        "/users/current": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get current user info",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetCurrentResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -272,6 +306,50 @@
                     "message": {
                         "type": "string",
                         "example": "Logout success"
+                    }
+                }
+            },
+            "GetCurrentResponse": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "64e61752a33df173a995376c"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Anna"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "example": "mail@gmail.com"
+                    },
+                    "dailyCalorie": {
+                        "type": "integer",
+                        "description": "User's dailyCalorie",
+                        "example": 799
+                    },
+                    "dailyExerciseTime": {
+                        "type": "integer",
+                        "description": "User's dailyCalorie",
+                        "example": 20
+                    },
+                    "bodyData": {
+                        "type": "object",
+                        "description": "User's body data",
+                        "example": {
+                            "height": 172,
+                            "currentWeight": 72,
+                            "desiredWeight": 68,
+                            "birthday": "1990-01-01T00:00:00.000Z",
+                            "blood": 1,
+                            "sex": "female",
+                            "levelActivity": 3,
+                            "avatar": "https://res.cloudinary.com/dyxftkjbx/image/upload/v1709581896/mntvriw2auuv7oa41w3g.png"
+                        }
                     }
                 }
             }
