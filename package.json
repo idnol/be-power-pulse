@@ -25,6 +25,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.9",
+    "swagger-ui-express": "^5.0.0",
     "uniqid": "^5.4.0"
   },
   "devDependencies": {

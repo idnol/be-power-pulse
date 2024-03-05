@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "2.0.2",
+        "title": "POWER-PULSE",
+        "description": "Read backend API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "servers": [
+        {
+            "url": "http://localhost:3333/api"
+        },
+        {
+            "url": ""
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users endpoints"
+        },
+        {
+            "name": "Products",
+            "description": "Products endpoints"
+        },
+        {
+            "name": "Exercises",
+            "description": "Exercises endpoints"
+        },
+        {
+            "name": "Diaries",
+            "description": "Diaries endpoints"
+        }
+    ],
+    "paths": {
+        "/users/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User registration",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Registration's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegistrationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegistrationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request (Invalid request body)",
+                        "content": {}
+                    },
+                    "409": {
+                        "description": "Conflict (Email already in use)",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User login",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "LogIn's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request (Invalid request body)",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized (Email or password are wrong)",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/users/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User logout",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LogOutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/users/current": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get current user info",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetCurrentResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RegistrationRequest": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Anna"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "example": "mail@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "qwerty123"
+                    }
+                }
+            },
+            "LoginRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "example": "mail@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "qwerty123"
+                    }
+                }
+            },
+            "RegistrationResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "User's name",
+                                "example": "Anna"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "example": "mail@gmail.com"
+                            }
+                        }
+                    }
+                }
+            },
+            "LoginResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "User token",
+                        "example": "eyJhbGciOiJIIzI1NiIsInr5cCI6IkpXVCJ9.eyJpZCI6IjY0ZTYxNzUyYTMzZGYxNzNhOTk1Mzc2YyIsImlhdCI6MTY5MzIxOTQ4NSwiZXhwIjoxNjkzMzAyMjg1fQ.IsTt6p3jiZxutBpEkiz7i4IgKpgVISUMH5VZksS0V50"
+                    },
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "User's name",
+                                "example": "Anna"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "example": "mail@gmail.com"
+                            }
+                        }
+                    }
+                }
+            },
+            "LogOutResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Logout success"
+                    }
+                }
+            },
+            "GetCurrentResponse": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "64e61752a33df173a995376c"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Anna"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "example": "mail@gmail.com"
+                    },
+                    "dailyCalorie": {
+                        "type": "integer",
+                        "description": "User's dailyCalorie",
+                        "example": 799
+                    },
+                    "dailyExerciseTime": {
+                        "type": "integer",
+                        "description": "User's dailyCalorie",
+                        "example": 20
+                    },
+                    "bodyData": {
+                        "type": "object",
+                        "description": "User's body data",
+                        "example": {
+                            "height": 172,
+                            "currentWeight": 72,
+                            "desiredWeight": 68,
+                            "birthday": "1990-01-01T00:00:00.000Z",
+                            "blood": 1,
+                            "sex": "female",
+                            "levelActivity": 3,
+                            "avatar": "https://res.cloudinary.com/dyxftkjbx/image/upload/v1709581896/mntvriw2auuv7oa41w3g.png"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

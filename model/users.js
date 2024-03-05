@@ -107,7 +107,7 @@ const userSchema = new Schema({
         type: Number,
         default: null
     },
-    bodyData:{
+    bodyData: {
         height: {
             type: Number,
             min: 150
@@ -123,7 +123,7 @@ const userSchema = new Schema({
         birthday: {
             type: Date,
             validate: {
-                validator: function(value) {
+                validator: function (value) {
                     const age = new Date().getFullYear() - value.getFullYear();
                     return age >= 18;
                 },
