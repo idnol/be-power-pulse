@@ -29,7 +29,6 @@ const registerSchema = Joi.object({
             "string.empty": "The password must not be empty.",
             "string.min": "The password must be not less 6 symbols.",
         }),
-    token: Joi.string(),
 });
 
 const loginSchema = Joi.object({
@@ -51,18 +50,6 @@ const loginSchema = Joi.object({
             "string.empty": "The password must not be empty.",
             "string.min": "The password must be not less 6 symbols.",
         }),
-});
-
-const updateSchema = Joi.object({
-    name: Joi.string()
-        .empty(false)
-        .messages({
-            "any.required": "The name field is required.",
-            "string.empty": "The name must not be empty",
-        }),
-    avatar: Joi.string().empty(false).messages({
-        "string.empty": "The avatar must not be empty",
-    }),
 });
 
 const userJoiSchema = Joi.object({
@@ -98,7 +85,10 @@ const userSchema = new Schema({
         required: [true, 'Set password for user'],
         minlength: 6,
     },
-    token: String,
+    token: {
+        type: String,
+        default: "",
+    },
     dailyCalorie: {
         type: Number,
         default: null

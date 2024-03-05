@@ -1,28 +1,39 @@
 const { User } = require("../../model/users");
 const { HttpError } = require("../../helper");
 const bcrypt = require("bcrypt");
-const gravatar = require("gravatar");
+const jwt = require("jsonwebtoken");
 
-const register = async (req, res, next) => {
+const { SECRET } = process.env
+
+const register = async (req, res) => {
     const { name, email, password } = req.body;
     const user = await User.findOne({ email });
 
     if (user) {
         throw HttpError(409, "Email already in use")
     }
-
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const userNew = await User.create({
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = {
         name,
         email,
-        password: hashedPassword,
+        password: hashedPassword
+    }
+
+    const savedUser = await User.create(newUser);
+
+    const payload = {
+        id: savedUser._id,
+    };
+    const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
+
+    const userNew = await User.findByIdAndUpdate(savedUser._id,{
         dailyExerciseTime: 0,
-        dailyCalorie: 0
+        dailyCalorie: 0,
+        token
     })
 
     res.status(201).json({
+        token,
         user: {
             name: userNew.name,
             email: userNew.email,

@@ -13,7 +13,7 @@ const updateAvatar = async (req, res) => {
     const result = await User.findByIdAndUpdate(_id, { bodyData });
 
     if (!result) {
-        throw HttpError(404);
+        throw HttpError(500);
     }
 
     const avatar = bodyData.avatar
