@@ -53,18 +53,6 @@ const loginSchema = Joi.object({
         }),
 });
 
-const updateSchema = Joi.object({
-    name: Joi.string()
-        .empty(false)
-        .messages({
-            "any.required": "The name field is required.",
-            "string.empty": "The name must not be empty",
-        }),
-    avatar: Joi.string().empty(false).messages({
-        "string.empty": "The avatar must not be empty",
-    }),
-});
-
 const userJoiSchema = Joi.object({
     name: Joi.string().min(3).required(),
     height: Joi.number().min(150).required(),
@@ -159,6 +147,5 @@ module.exports = {
     User,
     registerSchema,
     loginSchema,
-    updateSchema,
     userJoiSchema,
 };

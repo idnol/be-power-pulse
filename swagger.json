@@ -10,7 +10,8 @@
         }
     },
     "consumes": [
-        "application/json"
+        "application/json",
+        "multipart/form-data"
     ],
     "produces": [
         "application/json"
@@ -104,7 +105,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "LogIn's object",
+                    "description": "User login object",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -207,6 +208,104 @@
                     }
                 }
             }
+        },
+        "/users/profile": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User update profile",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "User update object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProfileRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateProfileResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request (Invalid request body)",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/users/avatar": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User update avatar",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "User update object",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAvatarRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateAvatarResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request (Invalid request body)",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -252,6 +351,97 @@
                         "type": "string",
                         "description": "User's password",
                         "example": "qwerty123"
+                    }
+                }
+            },
+            "UpdateProfileRequest": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "height",
+                    "currentWeight",
+                    "desiredWeight",
+                    "birthday",
+                    "blood",
+                    "sex",
+                    "levelActivity"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Anna"
+                    },
+                    "height": {
+                        "type": "integer",
+                        "description": "User's height",
+                        "example": 172
+                    },
+                    "currentWeight": {
+                        "type": "integer",
+                        "description": "User's current weight",
+                        "example": 75
+                    },
+                    "desiredWeight": {
+                        "type": "integer",
+                        "description": "User's desired weight",
+                        "example": 70
+                    },
+                    "birthday": {
+                        "type": "integer",
+                        "description": "User's birthday",
+                        "format": "YYYY-MM-DD",
+                        "example": "1990-03-12"
+                    },
+                    "blood": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ],
+                        "description": "User's blood type",
+                        "example": 1
+                    },
+                    "sex": {
+                        "type": "string",
+                        "enum": [
+                            "male",
+                            "female"
+                        ],
+                        "description": "User's sex",
+                        "example": "female"
+                    },
+                    "levelActivity": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ],
+                        "description": "User's level activity",
+                        "example": 3
+                    }
+                }
+            },
+            "UpdateAvatarRequest": {
+                "type": "object",
+                "required": [
+                    "avatar"
+                ],
+                "properties": {
+                    "avatar": {
+                        "description": "File to upload",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                },
+                "encoding": {
+                    "avatar": {
+                        "contentType": "image"
                     }
                 }
             },
@@ -350,6 +540,49 @@
                             "levelActivity": 3,
                             "avatar": "https://res.cloudinary.com/dyxftkjbx/image/upload/v1709581896/mntvriw2auuv7oa41w3g.png"
                         }
+                    }
+                }
+            },
+            "UpdateProfileResponse": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Anna"
+                    },
+                    "dailyCalorie": {
+                        "type": "integer",
+                        "description": "User's dailyCalorie",
+                        "example": 799
+                    },
+                    "dailyExerciseTime": {
+                        "type": "integer",
+                        "description": "User's dailyCalorie",
+                        "example": 20
+                    },
+                    "bodyData": {
+                        "type": "object",
+                        "description": "User's body data",
+                        "example": {
+                            "height": 172,
+                            "currentWeight": 72,
+                            "desiredWeight": 68,
+                            "birthday": "1990-01-01T00:00:00.000Z",
+                            "blood": 1,
+                            "sex": "female",
+                            "levelActivity": 3
+                        }
+                    }
+                }
+            },
+            "UpdateAvatarResponse": {
+                "type": "object",
+                "properties": {
+                    "avatar": {
+                        "type": "string",
+                        "description": "User avatar",
+                        "example": "https://res.cloudinary.com/dyxftkjbx/image/upload/v1709581896/mntvriw2auuv7oa41w3g.png"
                     }
                 }
             }

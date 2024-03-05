@@ -15,7 +15,7 @@ const updateProfile = async (req, res) => {
     const result = await User.findByIdAndUpdate(_id, { name, bodyData, dailyCalorie });
 
     if (!result) {
-        throw HttpError(404);
+        throw HttpError(500);
     }
 
     res.json({ name, dailyCalorie, dailyExerciseTime, bodyData });
