@@ -5,13 +5,13 @@ const addNewDiary = async (obj) => {
         user,
         product,
         exercise,
-        weight,
+        weight = 0,
         time = 0,
         calories = 0,
         amount = 0,
         statistic
     } = obj;
-
+    console.log(calories)
     const {
         calories: dayCalories = 0,
         burnedCalories = 0,
@@ -23,9 +23,7 @@ const addNewDiary = async (obj) => {
         date: getDate(),
     }
 
-    product.weight = weight;
-    product.calories = calories;
-
+    console.log(product)
     if (product) {
         diary.products = [
             {
