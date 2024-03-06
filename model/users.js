@@ -149,6 +149,5 @@ module.exports = {
     User,
     registerSchema,
     loginSchema,
-    updateSchema,
-    userJoiSchema,
+    userJoiSchema
 };
