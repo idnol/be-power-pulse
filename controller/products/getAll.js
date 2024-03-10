@@ -2,7 +2,6 @@ const Products = require('../../model/products');
 const {HttpError} = require("../../helper");
 
 const getAll = async (req, res) => {
-console.log(`req.`, req);
     const filter = {};
 
     if (req.query) {
