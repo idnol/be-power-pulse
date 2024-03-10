@@ -68,7 +68,27 @@ const userJoiSchema = Joi.object({
     sex: Joi.string().valid('male', 'female'),
     levelActivity: Joi.number().valid(1, 2, 3, 4, 5).required()
 });
-
+const userUpdateJoiSchema = Joi.object({
+    dailyCalorie: Joi.number(),
+    dailyExerciseTime: Joi.number(),
+    _id: Joi.string(),
+    name: Joi.string().min(3),
+    avatar: Joi.string(),
+    height: Joi.number().min(150),
+    currentWeight: Joi.number().min(35),
+    desiredWeight: Joi.number().min(35),
+    birthday: Joi.date().iso().max('now').raw().custom((value, helpers) => {
+        const age = new Date().getFullYear() - new Date(value).getFullYear();
+        if (age < 18) {
+            return helpers.message('Age must be at least 18 years old');
+        }
+        return value;
+    }),
+    blood: Joi.number().valid(1, 2, 3, 4),
+    sex: Joi.string().valid('male', 'female'),
+    levelActivity: Joi.number().valid(1, 2, 3, 4, 5),
+    email: Joi.string().email(),
+});
 const userSchema = new Schema({
     name: {
         type: String,
@@ -149,5 +169,6 @@ module.exports = {
     User,
     registerSchema,
     loginSchema,
-    userJoiSchema
+    userJoiSchema,
+    userUpdateJoiSchema
 };
