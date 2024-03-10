@@ -15,14 +15,17 @@ const getStatisticsInfo = async (req, res) => {
     
     const diaries = await diariesData.find({}).toArray();
 
-    const { burnedCaloriesUsersTotal, sportTimeUsersTotal, exercisesUsersTotal } = diaries.reduce((accumulator, diary) =>
-      { const { burnedCalories, sportTime } = diary.statistic;
+  const { burnedCaloriesUsersTotal, sportTimeUsersTotal, exercisesUsersTotal } = diaries.reduce((accumulator, diary) => {
+        
+        const { burnedCalories, sportTime } = diary.statistic;
         const { exercises } = diary;
+        
         accumulator.burnedCaloriesUsersTotal += burnedCalories;
         accumulator.sportTimeUsersTotal += sportTime;
         accumulator.exercisesUsersTotal += exercises.length;
+        
         return accumulator;
-      }, { burnedCaloriesUsersTotal: 0, sportTimeUsersTotal: 0 , exercisesUsersTotal: 0});
+        }, { burnedCaloriesUsersTotal: 0, sportTimeUsersTotal: 0, exercisesUsersTotal: 0 });
 
     statisticData.push({ burnedCaloriesUsersTotal }, { sportTimeUsersTotal }, { exercisesUsersTotal });  
 

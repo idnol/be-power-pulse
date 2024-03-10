@@ -64,7 +64,7 @@ const addProduct = async (req, res) => {
                             ...diary.statistic,
                             calories: diary.statistic.calories
                         }
-                }
+                }, {new: true}
             )
         }
     }

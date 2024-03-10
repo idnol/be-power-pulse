@@ -12,7 +12,7 @@ const updateProfile = async (req, res) => {
     const age = ageFromDate(bodyData.birthday)
     const dailyCalorie = bmr(bodyData, age)
 
-    const result = await User.findByIdAndUpdate(_id, { name, bodyData, dailyCalorie });
+    const result = await User.findByIdAndUpdate(_id, { name, bodyData, dailyCalorie }, {new: true});
 
     if (!result) {
         throw HttpError(404);
