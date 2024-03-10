@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerSchema, loginSchema, userJoiSchema} = require('../model/users');
+const { registerSchema, loginSchema, userJoiSchema,userUpdateJoiSchema} = require('../model/users');
 const validateBody = require('../middlewar/validateBody');
 const { register, login, logout, getCurrent, updateProfile , updateAvatar} = require('../controller/users');
 const { authenticate } = require('../middlewar');
@@ -8,11 +8,13 @@ const statisticsMiddleware = require('../middlewar/statisticsMiddleware');
 
 const usersRouter = express.Router();
 
-usersRouter.post("/register", statisticsMiddleware, validateBody(registerSchema), register);
-usersRouter.post("/login", statisticsMiddleware, validateBody(loginSchema), login);
+// usersRouter.post("/register", statisticsMiddleware, validateBody(registerSchema), register);
+usersRouter.post("/register", validateBody(registerSchema), register);
+// usersRouter.post("/login", statisticsMiddleware, validateBody(loginSchema), login);
+usersRouter.post("/login", validateBody(loginSchema), login);
 usersRouter.post("/logout", authenticate, logout);
 usersRouter.get("/current", authenticate, getCurrent);
-usersRouter.patch("/profile", authenticate, validateBody(userJoiSchema), updateProfile);
+usersRouter.patch("/profile", authenticate, validateBody(userUpdateJoiSchema), updateProfile);
 usersRouter.post("/avatar", authenticate,   upload.single("avatar"), updateAvatar);
 
 module.exports = usersRouter;
