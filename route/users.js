@@ -8,8 +8,10 @@ const statisticsMiddleware = require('../middlewar/statisticsMiddleware');
 
 const usersRouter = express.Router();
 
-usersRouter.post("/register", statisticsMiddleware, validateBody(registerSchema), register);
-usersRouter.post("/login", statisticsMiddleware, validateBody(loginSchema), login);
+// usersRouter.post("/register", statisticsMiddleware, validateBody(registerSchema), register);
+usersRouter.post("/register", validateBody(registerSchema), register);
+// usersRouter.post("/login", statisticsMiddleware, validateBody(loginSchema), login);
+usersRouter.post("/login", validateBody(loginSchema), login);
 usersRouter.post("/logout", authenticate, logout);
 usersRouter.get("/current", authenticate, getCurrent);
 usersRouter.patch("/profile", authenticate, validateBody(userJoiSchema), updateProfile);
