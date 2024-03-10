@@ -67,7 +67,7 @@ const addExercise = async (req, res) => {
                         burnedCalories: diary.statistic.burnedCalories,
                         sportTime: diary.statistic.sportTime
                     }
-                }
+                }, { new: true }
             )
         }
     }
