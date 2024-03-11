@@ -12,7 +12,7 @@ const schema = new Schema(
                     ref: 'products',
                 },
                 weight: Number,
-                calories: Number
+                calories: Number,
             }
         ],
         exercises: [
