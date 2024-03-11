@@ -3,7 +3,8 @@ const getDate = require("./services/getDate");
 const {HttpError} = require("../../helper");
 const removeProduct = async (req, res) => {
     const {_id: user} = req.user;
-    const {id, calories} = req.body;
+    const { id, calories } = req.body;
+    // console.log(req.body);
 
     const diary = await Diary.findOne({
         owner: user,
@@ -14,7 +15,7 @@ const removeProduct = async (req, res) => {
         throw HttpError(404);
     }
 
-    const {_id, statistic} = diary;
+    const { _id, statistic } = diary;
     statistic.calories -= calories;
 
     const data = await Diary.findByIdAndUpdate(
@@ -24,15 +25,17 @@ const removeProduct = async (req, res) => {
                 ...statistic,
                 calories: statistic.calories
             },
-            $pull: { products: { _id: id } }
+            $pull: { products: { _id: id } },
         },
         { new: true }
-    )
-
+    ).populate('products.product');
+    
     if (!data) {
         throw HttpError(404);
     }
 
+ 
+console.log(data);
     res.json(data);
 }
 
