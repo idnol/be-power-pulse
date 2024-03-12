@@ -4,10 +4,10 @@ const { HttpError } = require("../../helper");
 
 const getDiary = async (req, res) => {
     const {_id: user} = req.user;
-
+    const date = req.body.date ?? getDate();
     const result = await Diary.findOne({
         owner: user,
-        date: getDate()
+        date: date
     }).populate('products.product').populate('exercises.exercise');
 
     if (!result) HttpError(404, 'not found');
