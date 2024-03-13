@@ -2,17 +2,18 @@ const {Exercise} = require("../../model/exercises")
 const {HttpError} = require("../../helper");
 
 const getAll = async (req,res)=>{
-    console.log(123)
-    console.log(req.query)
+
+    if (!req.query) {
+        throw HttpError(404);
+    }
 
     const keyQuery = ["bodyPart", "equipment", "target"]
 
     const foundKey = keyQuery.find(key => req.query[key] !== undefined);
-
+    console.log(foundKey)
     if (!foundKey){
-        return
+        throw HttpError(404);
     }
-
     const value = req.query[foundKey];
     const query = value.split('-').join(' ');
 
