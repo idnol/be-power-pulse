@@ -29,7 +29,7 @@ const removeExercise = async (req, res) => {
             $pull: { exercises: { _id: id } }
         },
         { new: true }
-    )
+    ).populate('exercises.exercise');
 
     if (!data) {
         throw HttpError(404);

@@ -4,7 +4,6 @@ const {HttpError} = require("../../helper");
 const removeProduct = async (req, res) => {
     const {_id: user} = req.user;
     const { id, calories } = req.body;
-    // console.log(req.body);
 
     const diary = await Diary.findOne({
         owner: user,
