@@ -2,6 +2,8 @@ const {Exercise} = require("../../model/exercises")
 const {HttpError} = require("../../helper");
 
 const getAll = async (req,res)=>{
+    console.log(123)
+    console.log(req.query)
 
     const keyQuery = ["bodyPart", "equipment", "target"]
 
