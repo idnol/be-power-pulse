@@ -19,10 +19,10 @@
     ],
     "servers": [
         {
-            "url": "https://be-power-pulse.onrender.com/api"
+            "url": "https://be-power-pulse.onrender.com/api-docs"
         },
         {
-            "url": ""
+            "url": "http://localhost:3333/api-docs"
         }
     ],
     "tags": [
@@ -486,7 +486,18 @@
                     "Diaries"
                 ],
                 "summary": "Request for diaries",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "13/03/2024"
+                        },
+                        "description": "Date of the diary"
+                    }
+                ],
                 "security": [
                     {
                         "Bearer": []
@@ -1164,6 +1175,18 @@
                 "required": [
                     "_id"
                 ],
+                "params": {
+                    "query": {
+                        "type": "object",
+                        "properties": {
+                            "date": {
+                                "type": "string",
+                                "description": "Date of the diary",
+                                "example": "13/03/2024"
+                            }
+                        }
+                    }
+                },
                 "properties": {
                     "_id": {
                         "type": "string",
@@ -1177,16 +1200,16 @@
                 "properties": {
                     "_id": {
                         "type": "string",
-                        "description": "MongoDB ObjectId",
-                        "example": "65e4ec34bd0deae291584378"
+                        "description": "MongoDB Id",
+                        "example": "65f18a4c54cc0e9936b2cda1"
                     },
                     "owner": {
                         "type": "object",
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "Owner's MongoDB ObjectId",
-                                "example": "65e4ec34bd0deae291584378"
+                                "description": "Owner Id",
+                                "example": "65f18a3854cc0e9936b2cd89"
                             }
                         },
                         "description": "Owner of the diary"
@@ -1194,7 +1217,7 @@
                     "date": {
                         "type": "string",
                         "description": "Date of the diary",
-                        "example": "04/03/2024"
+                        "example": "03/03/2024"
                     },
                     "products": {
                         "type": "array",
@@ -1206,27 +1229,32 @@
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "description": "Product's MongoDB ObjectId",
-                                            "example": "5d51694902b2373622ff5b7f"
+                                            "description": "Product Id",
+                                            "example": "5d51694902b2373622ff5b6f"
                                         }
                                     }
                                 },
                                 "weight": {
                                     "type": "integer",
-                                    "description": "Weight of the product"
+                                    "description": "Weight of the product",
+                                    "example": 100
                                 },
                                 "calories": {
                                     "type": "integer",
-                                    "description": "Calories of the product"
+                                    "description": "Calories of the product",
+                                    "example": 160
                                 },
                                 "_id": {
                                     "type": "object",
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "description": "MongoDB ObjectId",
-                                            "example": "65e4f471d05a85015a399e7c"
+                                            "description": "Mongo Id",
+                                            "example": "65f18a4c54cc0e9936b2cda2"
                                         }
+                                    },
+                                    "example": {
+                                        "id": "65f18a4c54cc0e9936b2cda2"
                                     }
                                 }
                             }
@@ -1237,15 +1265,18 @@
                         "properties": {
                             "calories": {
                                 "type": "integer",
-                                "description": "Total calories"
+                                "description": "Total calories",
+                                "example": 402
                             },
                             "burnedCalories": {
                                 "type": "integer",
-                                "description": "Total burned calories"
+                                "description": "Total burned calories",
+                                "example": 6
                             },
                             "sportTime": {
                                 "type": "integer",
-                                "description": "Total sport time"
+                                "description": "Total sport time",
+                                "example": 6
                             }
                         }
                     },
@@ -1259,88 +1290,37 @@
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "description": "Exercise's MongoDB ObjectId",
-                                            "example": "64f2458d6f67bc34bae4f801"
+                                            "description": "Exercise Id",
+                                            "example": "64f2458d6f67bc34bae4fa2d"
                                         }
                                     }
                                 },
                                 "time": {
                                     "type": "integer",
-                                    "description": "Time spent on the exercise"
+                                    "description": "Time spent on the exercise",
+                                    "example": 4
                                 },
                                 "calories": {
                                     "type": "integer",
-                                    "description": "Calories burned during the exercise"
+                                    "description": "Calories burned during the exercise",
+                                    "example": 3
                                 },
                                 "_id": {
                                     "type": "object",
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "description": "MongoDB ObjectId",
-                                            "example": "65e4f6e6d0dda6b9e38cc142"
+                                            "description": "Mongo Id",
+                                            "example": "65f18a6054cc0e9936b2cddc"
                                         }
+                                    },
+                                    "example": {
+                                        "id": "65f18a6054cc0e9936b2cddc"
                                     }
                                 }
                             }
                         }
                     }
-                },
-                "example": {
-                    "_id": "5d51694902b2373622ff5757",
-                    "owner": {
-                        "id": "65e4ec34bd0deae291584378"
-                    },
-                    "date": "04/03/2024",
-                    "products": [
-                        {
-                            "product": {
-                                "id": "5d51694902b2373622ff5b7f"
-                            },
-                            "weight": 200,
-                            "calories": 224,
-                            "_id": {
-                                "id": "65e4f471d05a85015a399e7c"
-                            }
-                        },
-                        {
-                            "product": {
-                                "id": "5d51694902b2373622ff5b7f"
-                            },
-                            "weight": 500,
-                            "calories": 924,
-                            "_id": {
-                                "id": "65e4f474d05a85015a399e89"
-                            }
-                        }
-                    ],
-                    "statistic": {
-                        "calories": 1144,
-                        "burnedCalories": 2835,
-                        "sportTime": 2300
-                    },
-                    "exercises": [
-                        {
-                            "exercise": {
-                                "id": "64f2458d6f67bc34bae4f801"
-                            },
-                            "time": 500,
-                            "calories": 647,
-                            "_id": {
-                                "id": "65e4f6e6d0dda6b9e38cc142"
-                            }
-                        },
-                        {
-                            "exercise": {
-                                "id": "64f2458d6f67bc34bae4f801"
-                            },
-                            "time": 300,
-                            "calories": 255,
-                            "_id": {
-                                "id": "65e4f6e8d0dda6b9e38cc17e"
-                            }
-                        }
-                    ]
                 }
             },
             "DiariesAddProductRequest": {
@@ -1556,13 +1536,13 @@
                     }
                 }
             }
-        }
-    },
-    "securitySchemes": {
-        "Bearer": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT"
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
         }
     }
 }
