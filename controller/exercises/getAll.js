@@ -3,7 +3,21 @@ const {HttpError} = require("../../helper");
 
 const getAll = async (req,res)=>{
 
-    const result = await Exercise.find();
+    const keyQuery = ["bodyPart", "equipment", "target"]
+
+    const foundKey = keyQuery.find(key => req.query[key] !== undefined);
+
+    if (!foundKey){
+        return
+    }
+
+    const value = req.query[foundKey];
+    const query = value.split('-').join(' ');
+
+    const filter = {};
+    filter[foundKey] = query;
+
+    const result = await Exercise.find(filter);
 
     if (!result) {
         throw HttpError(404);
