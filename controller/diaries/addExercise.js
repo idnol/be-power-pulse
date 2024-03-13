@@ -16,15 +16,14 @@ const addExercise = async (req, res) => {
     const defaultCalories = myExercise._doc.burnedCalories;
     const calories = Math.floor((defaultCalories * time) / 180)
 
-    const allDiaries = await Diary.find();
-
-    if (!allDiaries) {
-        throw HttpError(404);
-    }
-
     let result;
 
-    if (!allDiaries.length) {
+    const diary = await Diary.findOne({
+        owner: user,
+        date: getDate()
+    });
+
+    if (!diary) {
         result = await addNewDiary({
             user,
             exercise,
@@ -36,40 +35,22 @@ const addExercise = async (req, res) => {
             }
         });
     } else {
-        const diary = await Diary.findOne({
-            owner: user,
-            date: getDate()
-        });
+        const {_id, exercises} = diary
+        exercises.push({ exercise, time, calories });
+        diary.statistic.burnedCalories += calories;
+        diary.statistic.sportTime += time;
 
-        if (!diary) {
-            result = await addNewDiary({
-                user,
-                exercise,
-                time,
-                calories,
+        result = await Diary.findByIdAndUpdate(
+            _id,
+            {
+                exercises,
                 statistic: {
-                    burnedCalories: calories,
-                    sportTime: time
+                    ...diary.statistic,
+                    burnedCalories: diary.statistic.burnedCalories,
+                    sportTime: diary.statistic.sportTime
                 }
-            });
-        } else {
-            const {_id, exercises} = diary
-            exercises.push({ exercise, time, calories });
-            diary.statistic.burnedCalories += calories;
-            diary.statistic.sportTime += time;
-
-            result = await Diary.findByIdAndUpdate(
-                _id,
-                {
-                    exercises,
-                    statistic: {
-                        ...diary.statistic,
-                        burnedCalories: diary.statistic.burnedCalories,
-                        sportTime: diary.statistic.sportTime
-                    }
-                }, { new: true }
-            )
-        }
+            }, { new: true }
+        )
     }
 
     if (!result) HttpError(404, 'not found');
