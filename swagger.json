@@ -19,7 +19,7 @@
     ],
     "servers": [
         {
-            "url": "http://localhost:3333/api"
+            "url": "https://be-power-pulse.onrender.com/api"
         },
         {
             "url": ""
