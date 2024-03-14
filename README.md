@@ -4,7 +4,7 @@ Welcome to the server repository for PowerPulse, a responsive web application de
 ## Structure
 The server is structured around various endpoints that handle different functionalities of the application. Here are the main routes:
 
-# /api/users: Manages user-related operations such as
+/users: Manages user-related operations such as
       /users/register: Register a new user.
       /users/login: User login.
       /users/logout: User logout.
@@ -12,16 +12,16 @@ The server is structured around various endpoints that handle different function
       /users/profile: Update user profile.
       /users/avatar: Update user avatar.
     
-# /api/diaries: Manages diary entries, including consumed products and performed exercises.
+/diaries: Manages diary entries, including consumed products and performed exercises.
      /diaries: Get diary entries for a specific date.
      /diaries/product: Add or remove a product from the diary.
      /diaries/exercise: Add or remove an exercise from the diary.
 
-# /api/exercises: Retrieves exercise data.
+/exercises: Retrieves exercise data.
       /exercises: Get all existing exercises in the application.
       /exercises/filters: Get exercise categories for different body parts.
       
-# /api/products: Retrieves product data.
+/products: Retrieves product data.
       /products: Get a list of all products.
       /products/categories: Get product lists categorized.
       
