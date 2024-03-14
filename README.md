@@ -45,7 +45,7 @@ To set up the backend, follow these steps:
     Deploy the backend to a hosting service.
 
 ## Documentation
-The API endpoints are documented using Swagger UI Express. Access the documentation at /api-docs route.
+The API endpoints are documented using Swagger UI Express. Access the documentation at https://be-power-pulse.onrender.com/api-docs
 
 ## Authentication and Authorization
 The server implements token-based authentication for secure user access. Private endpoints require authentication for access, ensuring protection of user data and resources.
