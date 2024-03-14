@@ -6,7 +6,6 @@ const { HttpError } = require("../../helper");
 const updateProfile = async (req, res) => {
     const {name: name, ...bodyData} =req.body
     const { _id } = req.user;
-    console.log(`req.body`, req.body);
 
     const dailyExerciseTime = 110;
 
