@@ -9,9 +9,9 @@ const usersRouter = express.Router();
 
 usersRouter.post("/register", validateBody(registerSchema), register);
 usersRouter.post("/login", validateBody(loginSchema), login);
-usersRouter.post("/logout", authenticate, logout);
+usersRouter.get("/logout", authenticate, logout);
 usersRouter.get("/current", authenticate, getCurrent);
 usersRouter.patch("/profile", authenticate, validateBody(userUpdateJoiSchema), updateProfile);
-usersRouter.post("/avatar", authenticate,   upload.single("avatar"), updateAvatar);
+usersRouter.post("/avatar", authenticate, upload.single("avatar"), updateAvatar);
 
 module.exports = usersRouter;

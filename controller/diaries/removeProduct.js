@@ -1,13 +1,21 @@
-const Diary = require("../../model/diaries");
+const {Diary} = require("../../model/diaries");
 const getDate = require("./services/getDate");
 const {HttpError} = require("../../helper");
 const removeProduct = async (req, res) => {
     const {_id: user} = req.user;
-    const { id, calories } = req.body;
+
+    const { id, calories, date } = req.body;
+
+    const dateAndTime = date.split('T');
+    const dateParts = dateAndTime[0].split('-');
+    const day = dateParts[2];
+    const month = dateParts[1];
+    const year = dateParts[0];
+    const formattedDate = day + '/' + month + '/' + year;
 
     const diary = await Diary.findOne({
         owner: user,
-        date: getDate()
+        date: formattedDate
     });
 
     if (!diary) {
@@ -33,8 +41,6 @@ const removeProduct = async (req, res) => {
         throw HttpError(404);
     }
 
- 
-console.log(data);
     res.json(data);
 }
 

@@ -1,4 +1,4 @@
-const Diary = require('../../model/diaries');
+const {Diary} = require('../../model/diaries');
 const {HttpError} = require("../../helper");
 const addNewDiary = require("./services/addNewDiary");
 const getDate = require("./services/getDate");
@@ -6,6 +6,7 @@ const {Exercise} = require("../../model/exercises");
 
 const addExercise = async (req, res) => {
     const {_id: user} = req.user;
+    console.log(req.body)
     const {exercise, time} = req.body;
     const myExercise = await Exercise.findById(exercise, 'burnedCalories');
 

@@ -1,4 +1,4 @@
-const Diary = require("../../model/diaries");
+const {Diary} = require("../../model/diaries");
 const getDate = require("./services/getDate");
 const { HttpError } = require("../../helper");
 

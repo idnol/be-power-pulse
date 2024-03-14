@@ -1,13 +1,20 @@
-const Diary = require("../../model/diaries");
+const {Diary} = require("../../model/diaries");
 const getDate = require("./services/getDate");
 const {HttpError} = require("../../helper");
 const removeExercise = async (req, res) => {
     const {_id: user} = req.user;
-    const {id, calories, time} = req.body;
+    const {id, calories, time, date} = req.body;
+
+    const dateAndTime = date.split('T');
+    const dateParts = dateAndTime[0].split('-');
+    const day = dateParts[2];
+    const month = dateParts[1];
+    const year = dateParts[0];
+    const formattedDate = day + '/' + month + '/' + year;
 
     const diary = await Diary.findOne({
         owner: user,
-        date: getDate()
+        date: formattedDate
     });
 
     if (!diary) {
