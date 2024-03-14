@@ -2,7 +2,6 @@ const Products = require('../../model/products');
 const {HttpError} = require("../../helper");
 
 const getAll = async (req, res) => {
-
     const filter = {};
 
     if (req.query) {
@@ -14,7 +13,6 @@ const getAll = async (req, res) => {
             filter.category = req.query.category;
         }
         if (req.query.recommended && req.query.recommended !== 'All') {
-            console.log(123)
             filter[`groupBloodNotAllowed.${req.query.blood}`] = req.query.recommended === 'recommended'
         }
     }

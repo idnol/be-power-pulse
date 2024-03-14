@@ -1,4 +1,5 @@
 const {model, Schema} =  require("mongoose");
+const Joi = require("joi");
 
 const schema = new Schema(
     {
@@ -12,7 +13,7 @@ const schema = new Schema(
                     ref: 'products',
                 },
                 weight: Number,
-                calories: Number
+                calories: Number,
             }
         ],
         exercises: [
@@ -34,6 +35,20 @@ const schema = new Schema(
     { versionKey: false, timestamps: false }
 );
 
+const addProductSchema = Joi.object({
+    product: Joi.string().required().empty(false),
+    weight: Joi.number().required().empty(false),
+});
+const addExerciseSchema = Joi.object({
+    exercise: Joi.string().required().empty(false),
+    time: Joi.number().required().empty(false),
+});
 const Diary = model('Diary', schema);
 
-module.exports = Diary;
+const joiSchemas = {
+    addProductSchema,
+    addExerciseSchema
+}
+
+module.exports = {Diary, joiSchemas};
+

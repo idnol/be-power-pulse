@@ -12,13 +12,15 @@ const updateProfile = async (req, res) => {
     const age = ageFromDate(bodyData.birthday)
     const dailyCalorie = bmr(bodyData, age)
 
-    const result = await User.findByIdAndUpdate(_id, { name, bodyData, dailyCalorie });
-
+    const result = await User.findByIdAndUpdate(
+        { _id },
+        { name, dailyCalorie, dailyExerciseTime, 'bodyData': { ...bodyData } },
+        {new: true});
     if (!result) {
         throw HttpError(500);
     }
 
-    res.json({ name, dailyCalorie, dailyExerciseTime, bodyData });
+    res.json({ name, dailyCalorie, dailyExerciseTime, bodyData: { ...bodyData } });
 
 }
 

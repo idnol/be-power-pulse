@@ -10,10 +10,10 @@ const updateAvatar = async (req, res) => {
         throw HttpError(404);
     }
 
-    const result = await User.findByIdAndUpdate(_id, { bodyData });
+    const result = await User.findByIdAndUpdate(_id, { bodyData }, {new: true});
 
     if (!result) {
-        throw HttpError(404);
+        throw HttpError(500);
     }
 
     const avatar = bodyData.avatar

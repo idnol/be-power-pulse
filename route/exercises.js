@@ -5,6 +5,6 @@ const {getAll, getAllFilters} = require("../controller/exercises")
 const router = express.Router();
 
 router.get("/", authenticate, getAll)
-router.get("/filters/", authenticate, getAllFilters)
+router.get("/filters", authenticate, getAllFilters)
 
 module.exports = router
