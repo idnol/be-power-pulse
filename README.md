@@ -1,10 +1,10 @@
-## PowerPulse Server
+# PowerPulse Server
 Welcome to the server repository for PowerPulse, a responsive web application designed to track and support users' fitness and nutrition journey. This README will guide you through the structure, endpoints, and technologies used in this version.
 
 ## Structure
 The server is structured around various endpoints that handle different functionalities of the application. Here are the main routes:
 
-/users: Manages user-related operations such as
+### /users: Manages user-related operations such as
       /users/register: Register a new user.
       /users/login: User login.
       /users/logout: User logout.
@@ -12,16 +12,16 @@ The server is structured around various endpoints that handle different function
       /users/profile: Update user profile.
       /users/avatar: Update user avatar.
     
-/diaries: Manages diary entries, including consumed products and performed exercises.
+### /diaries: Manages diary entries, including consumed products and performed exercises.
      /diaries: Get diary entries for a specific date.
      /diaries/product: Add or remove a product from the diary.
      /diaries/exercise: Add or remove an exercise from the diary.
 
-/exercises: Retrieves exercise data.
+### /exercises: Retrieves exercise data.
       /exercises: Get all existing exercises in the application.
       /exercises/filters: Get exercise categories for different body parts.
       
-/products: Retrieves product data.
+### /products: Retrieves product data.
       /products: Get a list of all products.
       /products/categories: Get product lists categorized.
       
@@ -39,7 +39,7 @@ The backend is built using the following technologies:
 ## Initial Setup
 To set up the backend, follow these steps:
     Install dependencies using npm install.
-    Configure environment variables as per .env.example.
+    Configure environment variables as .env.example.
     Initialize and connect to MongoDB.
     Implement error handling and HTTP status responses.
     Deploy the backend to a hosting service.
